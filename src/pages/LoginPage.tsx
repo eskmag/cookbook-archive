@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../supabase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ export default function LoginPage() {
       />
       <button className="w-full bg-blue-600 text-white py-2">Log in</button>
         <p className="mt-4 text-sm">
-            Don't have an account? <a href="/register" className="text-blue-600">Register here</a>
+            Don't have an account? <Link to="/register" className="text-blue-600">Register here</Link>
         </p>
     </form>
   );
