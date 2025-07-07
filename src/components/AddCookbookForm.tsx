@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { CookbookInput } from "../context/CookbookContext";
+import toast from 'react-hot-toast';
 
 type Props = {
   onAdd: (book: CookbookInput) => Promise<void>;
@@ -28,14 +29,21 @@ export default function AddCookbookForm({ onAdd }: Props) {
       isFavorite: false,
     };
 
-    await onAdd(newCookbook);
+    try {
+      await onAdd(newCookbook);
+      toast.success("Cookbook added successfully! 📚", {
+        duration: 3000,
+      });
 
-    // Reset
-    setTitle("");
-    setAuthor("");
-    setDescription("");
-    setLocation("");
-    setFavoriteRecipes("");
+      // Reset
+      setTitle("");
+      setAuthor("");
+      setDescription("");
+      setLocation("");
+      setFavoriteRecipes("");
+    } catch (error) {
+      toast.error("Failed to add cookbook");
+    }
   };
 
   return (

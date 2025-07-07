@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import { Toaster } from 'react-hot-toast';
 
 import {
   createBrowserRouter,
@@ -61,6 +62,42 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <CookbookProvider>
         <RecipeProvider> {/* 👈 Pakk inn RouterProvider her */}
           <RouterProvider router={router} />
+          <Toaster 
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: 'rgba(254, 247, 240, 0.95)',
+                backdropFilter: 'blur(15px)',
+                border: '1px solid rgba(238, 203, 173, 0.3)',
+                borderRadius: '1rem',
+                color: 'rgba(101, 67, 33, 0.95)',
+                boxShadow: '0 8px 32px rgba(184, 134, 91, 0.15)',
+                fontSize: '14px',
+                fontWeight: '500',
+              },
+              success: {
+                style: {
+                  border: '1px solid rgba(144, 238, 144, 0.4)',
+                  background: 'rgba(240, 255, 240, 0.95)',
+                },
+                iconTheme: {
+                  primary: '#90ee90',
+                  secondary: 'white',
+                },
+              },
+              error: {
+                style: {
+                  border: '1px solid rgba(240, 128, 128, 0.4)',
+                  background: 'rgba(255, 240, 240, 0.95)',
+                },
+                iconTheme: {
+                  primary: '#f08080',
+                  secondary: 'white',
+                },
+              },
+            }}
+          />
         </RecipeProvider>
       </CookbookProvider>
     </AuthProvider>

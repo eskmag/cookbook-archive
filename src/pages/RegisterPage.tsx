@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../supabase";
 import { useNavigate, Link } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -30,8 +31,11 @@ export default function RegisterPage() {
     
     if (error) {
       setError(error.message);
+      toast.error("Registration failed: " + error.message);
     } else {
-      alert("Registration complete! You can now log in.");
+      toast.success("Registration complete! You can now log in.", {
+        duration: 5000,
+      });
       navigate("/login");
     }
   };

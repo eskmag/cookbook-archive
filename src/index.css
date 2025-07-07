@@ -1508,4 +1508,62 @@ form button:hover {
     }
 }
 
+/* Toast Notification Enhancements */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+}
+
+/* Override react-hot-toast default styles for better glass-morphism */
+div[data-sonner-toaster] {
+  /* Additional styling if needed */
+}
+
+/* Custom toast animations */
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: translateX(100%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes toast-exit {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%) scale(0.8);
+  }
+}
+
+/* Mobile responsive toast adjustments */
+@media (max-width: 640px) {
+  .toast-container {
+    top: 0.5rem;
+    right: 0.5rem;
+    left: 0.5rem;
+    width: calc(100% - 1rem);
+  }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) and (pointer: coarse) {
+  /* Ensure toasts don't interfere with touch interactions */
+  .toast-container {
+    pointer-events: none;
+  }
+  
+  .toast-container > * {
+    pointer-events: auto;
+  }
+}
+
 

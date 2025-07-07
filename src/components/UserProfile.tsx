@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useCookbook } from "../context/CookbookContext";
 import { useRecipe } from "../context/RecipeContext";
 import { supabase } from "../supabase";
+import toast from 'react-hot-toast';
 
 export default function UserProfile() {
   const { user, logout, refreshUser } = useAuth();
@@ -29,14 +30,15 @@ export default function UserProfile() {
 
       if (error) {
         setError(error.message);
+        toast.error("Failed to update profile: " + error.message);
       } else {
         await refreshUser(); // Refresh user data
-        setSuccess("Profile updated successfully!");
+        toast.success("Profile updated successfully! 🎉");
         setIsEditing(false);
-        setTimeout(() => setSuccess(""), 3000);
       }
     } catch (err) {
       setError("Failed to update profile");
+      toast.error("Failed to update profile");
     } finally {
       setSaving(false);
     }

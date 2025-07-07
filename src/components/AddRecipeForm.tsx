@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRecipe } from "../context/RecipeContext";
 import type { RecipeInput } from "../context/RecipeContext";
+import toast from 'react-hot-toast';
 
 type Props = {
     onAdd?: (recipe: RecipeInput) => Promise<void>;
@@ -25,16 +26,24 @@ export default function AddRecipeForm({ onAdd }: Props) {
       isFavorite: false,
     };
 
-    if (onAdd) {
-        await onAdd(newRecipe);
-    } else {
-        await addRecipe(newRecipe);
-    }
+    try {
+      if (onAdd) {
+          await onAdd(newRecipe);
+      } else {
+          await addRecipe(newRecipe);
+      }
 
-    setTitle("");
-    setSource("");
-    setIngredients("");
-    setInstructions("");
+      toast.success("Recipe added successfully! 🍳", {
+        duration: 3000,
+      });
+
+      setTitle("");
+      setSource("");
+      setIngredients("");
+      setInstructions("");
+    } catch (error) {
+      toast.error("Failed to add recipe");
+    }
   };
 
   return (
