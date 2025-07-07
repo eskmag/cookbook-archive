@@ -2,6 +2,8 @@
 
 A beautiful, modern recipe and cookbook management application built with React, TypeScript, and Supabase. Organize your favorite recipes, manage your cookbook collection, and discover new culinary adventures with a warm, glass-morphism design.
 
+🌐 **[Live Demo](https://cookbookarchive.vercel.app)** - Try it now!
+
 ## ✨ Features
 
 - 🔐 **User Authentication** - Secure login and registration with Supabase Auth
@@ -12,17 +14,19 @@ A beautiful, modern recipe and cookbook management application built with React,
 - 🎨 **Beautiful UI** - Warm glass-morphism design with smooth animations
 - 📱 **Responsive Design** - Works perfectly on desktop, tablet, and mobile devices
 - 🔍 **Search & Filter** - Easily find recipes and cookbooks
-- 📊 **Statistics** - Track your cookbook and recipe collection growth
+- 📊 **Statistics Dashboard** - Track your cookbook and recipe collection growth
+- 🌐 **Cross-Device Access** - Access your recipes anywhere, anytime
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS, Custom CSS with Glass-morphism
-- **Backend**: Supabase (Database, Authentication, Real-time)
-- **Routing**: React Router DOM
+- **Styling**: Tailwind CSS, Custom CSS with Glass-morphism effects
+- **Backend**: Supabase (Database, Authentication, Real-time subscriptions)
+- **Routing**: React Router DOM with client-side navigation
 - **State Management**: React Context API
-- **Build Tool**: Vite
-- **Linting**: ESLint
+- **Build Tool**: Vite (Fast HMR and optimized builds)
+- **Deployment**: Vercel (or Netlify)
+- **Linting**: ESLint with TypeScript support
 
 ## 🚀 Getting Started
 
@@ -36,7 +40,7 @@ A beautiful, modern recipe and cookbook management application built with React,
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/cookbook-archive.git
+   git clone https://github.com/eskmag/cookbook-archive.git
    cd cookbook-archive
    ```
 
@@ -54,8 +58,9 @@ A beautiful, modern recipe and cookbook management application built with React,
 
 4. **Set up Supabase**
    - Create a new project in [Supabase](https://supabase.com)
-   - Run the SQL migrations for your database tables
-   - Configure authentication settings
+   - Configure your database tables for cookbooks, recipes, and user profiles
+   - Set up Row Level Security (RLS) policies
+   - Configure authentication settings and allowed domains
 
 5. **Start the development server**
    ```bash
@@ -65,6 +70,35 @@ A beautiful, modern recipe and cookbook management application built with React,
 6. **Open your browser**
    Navigate to `http://localhost:5173`
 
+## 🌐 Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. **Push to GitHub** (if not already done)
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+2. **Deploy to Vercel**
+   - Go to [vercel.com](https://vercel.com) and sign in with GitHub
+   - Click "New Project" and import your `cookbook-archive` repository
+   - Add environment variables:
+     - `VITE_SUPABASE_URL`
+     - `VITE_SUPABASE_ANON_KEY`
+   - Click "Deploy"
+
+3. **Configure Supabase for Production**
+   - Add your Vercel domain to Supabase Auth settings
+   - Update redirect URLs if needed
+
+### Alternative Deployment Options
+
+- **Netlify**: Similar process with automatic GitHub integration
+- **Firebase Hosting**: Use Firebase CLI for deployment
+- **GitHub Pages**: For static hosting (requires additional configuration)
+
 ## 📖 Usage
 
 ### Getting Started
@@ -72,46 +106,56 @@ A beautiful, modern recipe and cookbook management application built with React,
 2. **Create your first cookbook** to organize your recipes
 3. **Add recipes** to your cookbooks with ingredients and instructions
 4. **Mark favorites** to quickly access your most-loved recipes
-5. **Edit your profile** to personalize your experience
+5. **Edit your profile** to personalize your experience and view statistics
 
 ### Managing Cookbooks
 - Create new cookbooks with titles, authors, and descriptions
 - Edit existing cookbooks to keep information up-to-date
 - Add or remove recipes from your cookbooks
 - Mark cookbooks as favorites for quick access
+- View cookbook statistics on your profile
 
 ### Managing Recipes
 - Add new recipes with detailed instructions and ingredients
 - Edit recipe information and categorization
 - Mark recipes as favorites
 - Search and filter through your recipe collection
+- Track your recipe collection growth
+
+### Profile Features
+- Edit your display name and profile information
+- View comprehensive statistics (total cookbooks, recipes, favorites)
+- Manage account settings
+- Secure logout functionality
 
 ## 🎨 Design Features
 
-- **Glass-morphism UI** - Modern, translucent design elements
-- **Warm Color Palette** - Cozy, inviting color scheme
-- **Smooth Animations** - Polished hover effects and transitions
-- **Responsive Layout** - Optimized for all screen sizes
+- **Glass-morphism UI** - Modern, translucent design elements with backdrop blur
+- **Warm Color Palette** - Cozy, inviting browns and earth tones
+- **Smooth Animations** - Polished hover effects and micro-interactions
+- **Responsive Layout** - Mobile-first design that works on all devices
+- **Touch-Friendly** - Optimized for mobile and tablet interaction
 - **Accessibility** - Keyboard navigation and screen reader support
+- **Dark Mode Ready** - Prepared for future dark theme implementation
 
 ## 🔧 Development
 
 ### Available Scripts
 
 ```bash
-# Start development server
+# Start development server with hot reload
 npm run dev
 
 # Build for production
 npm run build
 
-# Preview production build
+# Preview production build locally
 npm run preview
 
-# Run linter
+# Run ESLint
 npm run lint
 
-# Run type checking
+# Type checking
 npm run type-check
 ```
 
@@ -120,17 +164,38 @@ npm run type-check
 ```
 src/
 ├── components/          # Reusable UI components
+│   ├── UserProfile.tsx  # Enhanced profile management
+│   └── ...
 ├── context/            # React Context providers
+│   ├── AuthContext.tsx # Authentication state management
+│   ├── CookbookContext.tsx
+│   └── RecipeContext.tsx
 ├── data/               # Static data and utilities
 ├── pages/              # Route components
+│   ├── LoginPage.tsx
+│   ├── RegisterPage.tsx
+│   └── ...
 ├── assets/             # Static assets
-├── App.tsx             # Main application component
+├── App.tsx             # Main application with routing
 ├── main.tsx            # Application entry point
-├── index.css           # Global styles
+├── index.css           # Global styles with glass-morphism
 └── supabase.ts         # Supabase configuration
 ```
 
+### Key Features Implemented
+
+- ✅ **User Authentication** with Supabase Auth
+- ✅ **Profile Management** with editable user information
+- ✅ **Recipe & Cookbook CRUD** operations
+- ✅ **Favorites System** with real-time updates
+- ✅ **Statistics Dashboard** with live data
+- ✅ **Responsive Design** with mobile optimization
+- ✅ **Glass-morphism UI** with warm color palette
+- ✅ **Client-side Routing** with React Router
+
 ## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -138,21 +203,56 @@ src/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+### Development Guidelines
+
+- Follow TypeScript best practices
+- Maintain the glass-morphism design consistency
+- Ensure mobile responsiveness
+- Add proper error handling
+- Write meaningful commit messages
+
+## 🐛 Known Issues & Roadmap
+
+### Current Limitations
+- Profile picture upload (planned for future release)
+- Recipe sharing between users (planned)
+- Export/import functionality (planned)
+
+### Upcoming Features
+- 🔄 Recipe sharing and collaboration
+- 📸 Image upload for recipes and cookbooks
+- 📤 Export recipes to PDF
+- 🌙 Dark mode theme
+- 🔔 Notifications and reminders
+
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- [Supabase](https://supabase.com) for the excellent backend-as-a-service
-- [Vite](https://vitejs.dev) for the fast build tool
-- [React](https://reactjs.org) for the UI framework
+- [Supabase](https://supabase.com) for the excellent backend-as-a-service platform
+- [Vite](https://vitejs.dev) for the blazing fast build tool
+- [React](https://reactjs.org) for the powerful UI framework
 - [Tailwind CSS](https://tailwindcss.com) for utility-first styling
+- [Vercel](https://vercel.com) for seamless deployment and hosting
 
-## 📧 Contact
+## 📧 Contact & Support
 
-For questions or support, please open an issue on GitHub or contact the maintainers.
+- **Issues**: Open a GitHub issue for bug reports or feature requests
+- **Discussions**: Use GitHub Discussions for questions and community chat
+- **Email**: Contact the maintainers for private inquiries
+
+## 🌟 Show Your Support
+
+If you find this project helpful, please consider:
+- ⭐ Starring the repository
+- 🍴 Forking for your own use
+- 📢 Sharing with others who might find it useful
+- 🐛 Reporting bugs or suggesting improvements
 
 ---
 
-Made with ❤️ and lots of ☕
+Made with ❤️ and lots of ☕ by [Eskil](https://github.com/eskmag)
+
+*Happy cooking and recipe organizing!* 🍳📚
