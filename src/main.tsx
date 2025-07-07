@@ -13,6 +13,7 @@ import { RecipeProvider } from "./context/RecipeContext"; // 👈 Importér denn
 
 // Pages
 import App from "./App"; // fungerer som "layout"
+import HomePage from "./pages/HomePage";
 import FavoritesPage from "./pages/FavoritesPage";
 import AllCookbooksPage from "./pages/AllCookbooksPage";
 import BookDetail from "./pages/BookDetail";
@@ -36,7 +37,8 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      { index: true, element: <FavoritesPage /> },
+      { index: true, element: <HomePage /> },
+      { path: "favorites", element: <FavoritesPage /> },
       { path: "cookbooks", element: <AllCookbooksPage /> },
       { path: "recipes", element: <RecipesPage /> },
       { path: "cookbook/:id", element: <BookDetail /> },

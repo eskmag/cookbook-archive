@@ -40,34 +40,39 @@ export default function App() {
         </div>
       </header>
       <h1 className="app-title">
-        📚 My Shelf
+        📚 Cookbook Archive
       </h1>
-      <nav className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-8 max-w-6xl mx-auto">
+      <nav className="main-navigation">
         {user ? (
           <>
-            <Link to="/" className="text-blue-600 hover:text-blue-800 transition-colors font-medium px-2 py-1">
+            <Link to="/" className="nav-link">
+              🏠 Home
+            </Link>
+            <Link to="/favorites" className="nav-link">
               ❤️ Favorites
             </Link>
-            <Link to="/cookbooks" className="text-blue-600 hover:text-blue-800 transition-colors font-medium px-2 py-1">
-              📖 All Cookbooks
+            <Link to="/cookbooks" className="nav-link">
+              📖 Cookbooks
             </Link>
-            <Link to="/recipes" className="text-blue-600 hover:text-blue-800 transition-colors font-medium px-2 py-1">
-              📋 Recipes
+            <Link to="/recipes" className="nav-link">
+              🍳 Recipes
             </Link>
           </>
         ) : (
           <>
-            <Link to="/login" className="text-blue-600 hover:text-blue-800 transition-colors font-medium px-2 py-1">
-              Log In
+            <Link to="/login" className="nav-link">
+              🔑 Log In
             </Link>
-            <Link to="/register" className="text-blue-600 hover:text-blue-800 transition-colors font-medium px-2 py-1">
-              Register
+            <Link to="/register" className="nav-link">
+              📝 Register
             </Link>
           </>
         )}
       </nav>
 
-      <Outlet />
+      <main className="page-container">
+        <Outlet />
+      </main>
     </div>
   );
 }

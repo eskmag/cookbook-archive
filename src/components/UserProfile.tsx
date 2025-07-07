@@ -109,37 +109,126 @@ export default function UserProfile() {
         {success && <div className="success-message">{success}</div>}
       </div>
 
-      {/* Statistics Cards */}
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-icon">📚</div>
-          <div className="stat-content">
-            <h3 className="stat-number">{userStats.totalCookbooks}</h3>
-            <p className="stat-label">Total Cookbooks</p>
+      {/* Personal Cooking Goals */}
+      <div className="profile-card">
+        <h3 className="section-title">Your Cooking Journey</h3>
+        <div className="cooking-goals-section">
+          <div className="goal-item">
+            <div className="goal-icon">🎯</div>
+            <div className="goal-content">
+              <h4>Collection Goal</h4>
+              <div className="progress-bar">
+                <div 
+                  className="progress-fill" 
+                  style={{ width: `${Math.min((userStats.totalCookbooks / 10) * 100, 100)}%` }}
+                ></div>
+              </div>
+              <p>{userStats.totalCookbooks}/10 cookbooks collected</p>
+            </div>
+          </div>
+          
+          <div className="goal-item">
+            <div className="goal-icon">👨‍🍳</div>
+            <div className="goal-content">
+              <h4>Recipe Master</h4>
+              <div className="progress-bar">
+                <div 
+                  className="progress-fill" 
+                  style={{ width: `${Math.min((userStats.totalRecipes / 25) * 100, 100)}%` }}
+                ></div>
+              </div>
+              <p>{userStats.totalRecipes}/25 recipes created</p>
+            </div>
+          </div>
+          
+          <div className="goal-item">
+            <div className="goal-icon">⭐</div>
+            <div className="goal-content">
+              <h4>Favorite Hunter</h4>
+              <div className="progress-bar">
+                <div 
+                  className="progress-fill" 
+                  style={{ width: `${Math.min(((userStats.favoriteCookbooks + userStats.favoriteRecipes) / 15) * 100, 100)}%` }}
+                ></div>
+              </div>
+              <p>{userStats.favoriteCookbooks + userStats.favoriteRecipes}/15 favorites marked</p>
+            </div>
           </div>
         </div>
         
-        <div className="stat-card">
-          <div className="stat-icon">❤️</div>
-          <div className="stat-content">
-            <h3 className="stat-number">{userStats.favoriteCookbooks}</h3>
-            <p className="stat-label">Favorite Cookbooks</p>
+        <div className="achievement-badges">
+          <h4>Achievements</h4>
+          <div className="badges-grid">
+            <div className={`badge ${userStats.totalCookbooks >= 1 ? 'earned' : 'locked'}`}>
+              <span className="badge-icon">📚</span>
+              <span className="badge-name">First Collection</span>
+            </div>
+            <div className={`badge ${userStats.totalRecipes >= 5 ? 'earned' : 'locked'}`}>
+              <span className="badge-icon">🍳</span>
+              <span className="badge-name">Recipe Creator</span>
+            </div>
+            <div className={`badge ${(userStats.favoriteCookbooks + userStats.favoriteRecipes) >= 10 ? 'earned' : 'locked'}`}>
+              <span className="badge-icon">❤️</span>
+              <span className="badge-name">Favorite Lover</span>
+            </div>
+            <div className={`badge ${userStats.totalCookbooks >= 5 && userStats.totalRecipes >= 10 ? 'earned' : 'locked'}`}>
+              <span className="badge-icon">🏆</span>
+              <span className="badge-name">Kitchen Master</span>
+            </div>
           </div>
         </div>
-        
-        <div className="stat-card">
-          <div className="stat-icon">📋</div>
-          <div className="stat-content">
-            <h3 className="stat-number">{userStats.totalRecipes}</h3>
-            <p className="stat-label">Total Recipes</p>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="profile-card">
+        <h3 className="section-title">Recent Activity</h3>
+        <div className="activity-section">
+          <div className="activity-item">
+            <div className="activity-icon">📖</div>
+            <div className="activity-content">
+              <p><strong>Last cookbook added:</strong> {userStats.totalCookbooks > 0 ? 'Recently' : 'None yet'}</p>
+            </div>
+          </div>
+          
+          <div className="activity-item">
+            <div className="activity-icon">🍽️</div>
+            <div className="activity-content">
+              <p><strong>Last recipe added:</strong> {userStats.totalRecipes > 0 ? 'Recently' : 'None yet'}</p>
+            </div>
+          </div>
+          
+          <div className="activity-item">
+            <div className="activity-icon">⭐</div>
+            <div className="activity-content">
+              <p><strong>Total favorites:</strong> {userStats.favoriteCookbooks + userStats.favoriteRecipes}</p>
+            </div>
           </div>
         </div>
-        
-        <div className="stat-card">
-          <div className="stat-icon">⭐</div>
-          <div className="stat-content">
-            <h3 className="stat-number">{userStats.favoriteRecipes}</h3>
-            <p className="stat-label">Favorite Recipes</p>
+      </div>
+
+      {/* Preferences */}
+      <div className="profile-card">
+        <h3 className="section-title">Preferences (coming soon)</h3>
+        <div className="preferences-section">
+          <div className="preference-item">
+            <label className="preference-label">
+              <input type="checkbox" className="preference-checkbox" />
+              <span>Email notifications for new features</span>
+            </label>
+          </div>
+          
+          <div className="preference-item">
+            <label className="preference-label">
+              <input type="checkbox" className="preference-checkbox" defaultChecked />
+              <span>Show cooking tips and suggestions</span>
+            </label>
+          </div>
+          
+          <div className="preference-item">
+            <label className="preference-label">
+              <input type="checkbox" className="preference-checkbox" />
+              <span>Dark mode</span>
+            </label>
           </div>
         </div>
       </div>
