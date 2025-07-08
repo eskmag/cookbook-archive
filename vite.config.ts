@@ -6,14 +6,13 @@ export default defineConfig({
   plugins: [react()],
   base: '/',
   server: {
-    historyApiFallback: true,
+    // Vite uses connect-history-api-fallback internally
+    // No need to explicitly configure historyApiFallback
   },
   preview: {
     port: 5173,
-    strictPort: true,
   },
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
   },
 })
