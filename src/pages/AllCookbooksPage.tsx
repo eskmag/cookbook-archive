@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function AllCookbooksPage() {
   const { cookbooks, addCookbook, loading } = useCookbook();
   const [search, setSearch] = useState("");
+  const [showForm, setShowForm] = useState(false);
 
   const filtered = cookbooks.filter((book) => {
     const q = search.toLowerCase();
@@ -20,7 +21,24 @@ export default function AllCookbooksPage() {
     <div className="max-w-6xl mx-auto px-4 space-y-8">
       <h1 className="text-3xl font-bold text-center text-gray-800">📚 All Cookbooks</h1>
 
-      <AddCookbookForm onAdd={addCookbook} />
+      <div className="flex justify-center">
+        <button 
+          onClick={() => setShowForm(!showForm)}
+          className="toggle-form-button"
+        >
+          {showForm ? (
+            <>
+              <span>✕</span> Close Form
+            </>
+          ) : (
+            <>
+              <span>+</span> Add New Cookbook
+            </>
+          )}
+        </button>
+      </div>
+
+      {showForm && <AddCookbookForm onAdd={addCookbook} />}
 
       <div className="search-bar">
         <input
