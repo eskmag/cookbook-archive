@@ -12,7 +12,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen px-4 py-8">
+    <div className="min-h-screen px-4 py-8 max-w-full overflow-hidden">
       {/* Mobile menu overlay - blocks content when menu is open */}
       <div 
         className={`mobile-menu-overlay ${menuOpen ? 'active' : ''}`}
@@ -76,8 +76,10 @@ export default function App() {
         </div>
       </header>
 
-      <main className="page-container">
-        <Outlet />
+      <main className="page-container max-w-full w-full overflow-x-hidden">
+        <div className="content-wrapper max-w-7xl mx-auto">
+          <Outlet />
+        </div>
       </main>
     </div>
   );

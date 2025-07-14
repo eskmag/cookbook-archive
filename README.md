@@ -8,6 +8,7 @@ A beautiful, modern recipe and cookbook management application built with React,
 
 - 🔐 **User Authentication** - Secure login and registration with Supabase Auth
 - 📖 **Cookbook Management** - Create, edit, and organize your cookbook collection
+- 📱 **Barcode Scanning** - Quickly add cookbooks by scanning ISBN barcodes or manual ISBN lookup
 - 🍳 **Recipe Management** - Add, edit, and categorize your favorite recipes
 - ❤️ **Favorites System** - Mark recipes and cookbooks as favorites for quick access
 - 👤 **User Profiles** - Customizable profile with statistics and account management
@@ -250,6 +251,28 @@ If you find this project helpful, please consider:
 - 🍴 Forking for your own use
 - 📢 Sharing with others who might find it useful
 - 🐛 Reporting bugs or suggesting improvements
+
+---
+
+## 📱 Barcode Scanning & ISBN Lookup
+
+The Cookbook Archive app features convenient ways to add cookbooks:
+
+### ISBN Barcode Scanning
+1. When adding a new cookbook, click the "Scan Barcode" button
+2. Grant camera access permissions if prompted
+3. Position the book's ISBN barcode within the scanner frame
+4. Once detected, the app will automatically look up the book details
+5. Fill in any additional details and save your cookbook
+
+### Manual ISBN Entry
+1. Enter the ISBN number in the ISBN field
+2. Click the "Lookup" button
+3. The app will automatically populate title, author and description
+4. Add any additional information like your favorite recipes
+5. Save the cookbook to your collection
+
+> 💡 **Tip:** The ISBN lookup feature works with most published cookbooks and culinary books that have registered ISBN numbers.
 
 ---
 
