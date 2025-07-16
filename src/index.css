@@ -198,21 +198,20 @@ img, video, canvas, svg, table {
     font-weight: 600;
     text-decoration: none;
     font-size: 0.95rem;
-    background: rgba(255, 250, 245, 0.7);
-    border: 1px solid rgba(238, 203, 173, 0.15);
+    background: transparent;
+    border: none;
 }
 
 .nav-link:hover {
     color: rgba(101, 67, 33, 1);
-    background: rgba(254, 247, 240, 0.95);
+    background: transparent;
     transform: translateY(-1px);
     box-shadow: 0 2px 8px rgba(184, 134, 91, 0.1);
-    border-color: rgba(238, 203, 173, 0.3);
 }
 
 .nav-link-subtle {
     font-size: 0.9rem;
-    background: rgba(255, 251, 245, 0.9);
+    background: transparent;
     color: rgba(101, 67, 33, 0.85);
 }
 
@@ -300,7 +299,7 @@ img, video, canvas, svg, table {
         border-top: 1px solid rgba(238, 203, 173, 0.5);
         visibility: visible;
         opacity: 1;
-        background: rgba(254, 247, 240, 0.98);
+        background: rgba(254, 247, 240, 1.0);
     }
     
     /* Mobile Menu Overlay */
@@ -333,7 +332,7 @@ img, video, canvas, svg, table {
         display: block;
         text-align: left;
         background: transparent;
-        border: 1px solid rgba(238, 203, 173, 0.2);
+        border: none;
         color: rgba(101, 67, 33, 1);
         font-weight: 700;
     }
@@ -343,15 +342,15 @@ img, video, canvas, svg, table {
     }
     
     .nav-link:hover {
-        background: rgba(255, 250, 245, 0.15);
+        background: transparent;
         transform: translateY(-1px);
-        border-color: rgba(238, 203, 173, 0.4);
+        border: none;
     }
     
     .nav-link:active {
-        background: rgba(244, 164, 96, 0.1);
+        background: transparent;
         transform: translateY(0);
-        border-color: rgba(238, 203, 173, 0.5);
+        border: none;
     }
     
     /* Make sure all navigation is inside the menu */
