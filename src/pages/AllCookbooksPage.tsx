@@ -18,7 +18,7 @@ export default function AllCookbooksPage() {
   });
 
   return (
-    <div className="max-w-6xl mx-auto px-4 space-y-8">
+    <div className="max-w-6xl mx-auto px-2 sm:px-4 space-y-8">
       <h1 className="text-3xl font-bold text-center text-gray-800">📚 All Cookbooks</h1>
 
       <div className="flex justify-center">
@@ -50,7 +50,7 @@ export default function AllCookbooksPage() {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {loading ? (
           <SkeletonGrid count={6} type="cookbook" />
         ) : filtered.length > 0 ? (
