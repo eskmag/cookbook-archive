@@ -299,7 +299,9 @@ img, video, canvas, svg, table {
         border-top: 1px solid rgba(238, 203, 173, 0.5);
         visibility: visible;
         opacity: 1;
-        background: rgba(254, 247, 240, 1.0);
+        background: rgb(254, 247, 240) !important;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
     
     /* Mobile Menu Overlay */
@@ -1112,6 +1114,36 @@ form button:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.cookbook-card-image-container {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: rgba(238, 203, 173, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cookbook-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.cookbook-card:hover .cookbook-card-image {
+    transform: scale(1.05);
+}
+
+.cookbook-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60px;
 }
 
 .cookbook-card-title {

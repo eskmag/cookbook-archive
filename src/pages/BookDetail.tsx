@@ -40,7 +40,7 @@ export default function BookDetail() {
 
   return (
     <div className="book-detail max-w-2xl mx-auto p-6">
-      <button className="mb-4 text-blue-600 hover:underline" onClick={() => navigate("/")}>
+      <button className="mb-4 text-blue-600 hover:underline" onClick={() => navigate("/cookbooks")}>
         ← Back
       </button>
 
