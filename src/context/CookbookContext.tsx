@@ -1,10 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "../supabase";
-import { useAuth } from "./AuthContext";
+import React, { createContext, useContext, useRef, useState } from "react";
+import { cookbooks as seedCookbooks } from "../data/cookbook";
 
 export type Cookbook = {
-  id: number;          // number, ikke string
-  user_id: string;
+  id: number;
   title: string;
   author: string;
   description?: string;
@@ -13,7 +11,7 @@ export type Cookbook = {
   favoriteRecipes: string[];
 };
 
-export type CookbookInput = Omit<Cookbook, "id" | "user_id">;
+export type CookbookInput = Omit<Cookbook, "id">;
 
 type CookbookContextType = {
   cookbooks: Cookbook[];
@@ -27,121 +25,41 @@ type CookbookContextType = {
 const CookbookContext = createContext<CookbookContextType | undefined>(undefined);
 
 export const CookbookProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cookbooks, setCookbooks] = useState<Cookbook[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
-
-  useEffect(() => {
-    if (!user) return;
-
-    const fetchCookbooks = async () => {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from("cookbooks")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false });
-      if (error) {
-        console.error("Error fetching cookbooks:", error);
-      } else {
-        // Make sure IDs are numbers
-        setCookbooks(
-          (data || []).map((item) => ({
-            ...item,
-            id: typeof item.id === "string" ? parseInt(item.id, 10) : item.id,
-            isFavorite: item.isFavorite || false, // Use the correct database column name
-          }))
-        );
-      }
-      setLoading(false);
-    };
-
-    fetchCookbooks();
-  }, [user]);
+  const [cookbooks, setCookbooks] = useState<Cookbook[]>(seedCookbooks);
+  const nextId = useRef(
+    seedCookbooks.reduce((max, b) => Math.max(max, b.id), 0) + 1
+  );
 
   const addCookbook = async (book: CookbookInput) => {
-    if (!user) return;
-
-    const { data, error } = await supabase
-      .from("cookbooks")
-      .insert([{ ...book, user_id: user.id }])
-      .select()
-      .single();
-
-    if (error) {
-      console.error("Error saving cookbook:", error);
-    } else {
-      setCookbooks((prev) => [
-        {
-          ...data,
-          id: typeof data.id === "string" ? parseInt(data.id, 10) : data.id,
-          isFavorite: data.isFavorite || false, // Use the correct database column name
-        },
-        ...prev,
-      ]);
-    }
+    setCookbooks((prev) => [{ ...book, id: nextId.current++ }, ...prev]);
   };
 
   const updateCookbook = async (updated: Cookbook) => {
-    const { id, ...data } = updated;
-
-    const { error, data: updatedData } = await supabase
-        .from("cookbooks")
-        .update({
-        ...data,
-        isFavorite: updated.isFavorite, // Use the correct database column name
-        })
-        .eq("id", id)
-        .select()
-        .single();
-
-    if (error) {
-        console.error("Error updating cookbook:", error);
-    } else {
-        setCookbooks((prev) =>
-        prev.map((book) => (book.id === id ? {
-            ...updatedData,
-            id: typeof updatedData.id === "string" ? parseInt(updatedData.id, 10) : updatedData.id,
-            isFavorite: updatedData.isFavorite || false, // Use the correct database column name
-        } : book))
-        );
-    }
-    };
-
+    setCookbooks((prev) =>
+      prev.map((book) => (book.id === updated.id ? updated : book))
+    );
+  };
 
   const deleteCookbook = async (id: number) => {
-    const { error } = await supabase.from("cookbooks").delete().eq("id", id);
-
-    if (error) {
-      console.error("Error deleting cookbook:", error);
-    } else {
-      setCookbooks((prev) => prev.filter((book) => book.id !== id));
-    }
+    setCookbooks((prev) => prev.filter((book) => book.id !== id));
   };
 
   const toggleFavorite = async (id: number) => {
-    const book = cookbooks.find((b) => b.id === id);
-    if (!book) return;
-
-    const updated = !book.isFavorite;
-
-    const { error } = await supabase
-      .from("cookbooks")
-      .update({ isFavorite: updated })
-      .eq("id", id);
-
-    if (error) {
-      console.error("Error updating favorite:", error);
-    } else {
-      setCookbooks((prev) =>
-        prev.map((b) => (b.id === id ? { ...b, isFavorite: updated } : b))
-      );
-    }
+    setCookbooks((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, isFavorite: !b.isFavorite } : b))
+    );
   };
 
   return (
     <CookbookContext.Provider
-      value={{ cookbooks, loading, addCookbook, updateCookbook, deleteCookbook, toggleFavorite }}
+      value={{
+        cookbooks,
+        loading: false,
+        addCookbook,
+        updateCookbook,
+        deleteCookbook,
+        toggleFavorite,
+      }}
     >
       {children}
     </CookbookContext.Provider>

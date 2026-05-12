@@ -11,7 +11,7 @@ export default function EditCookbook() {
   const bookId = Number(id);
   const bookToEdit = cookbooks.find((b) => b.id === bookId);
 
-  const [form, setForm] = useState<Omit<Cookbook, "id" | "user_id">>({
+  const [form, setForm] = useState<Omit<Cookbook, "id">>({
     title: "",
     author: "",
     description: "",
@@ -22,7 +22,7 @@ export default function EditCookbook() {
 
   useEffect(() => {
     if (bookToEdit) {
-      const { id, user_id, ...rest } = bookToEdit;
+      const { id: _id, ...rest } = bookToEdit;
       setForm({ ...rest, favoriteRecipes: rest.favoriteRecipes ?? [] });
     }
   }, [bookToEdit]);

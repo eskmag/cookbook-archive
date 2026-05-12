@@ -16,7 +16,6 @@ export default function EditRecipe() {
     ingredients: [],
     instructions: "",
     source: "",
-    user_id: "",
     isFavorite: false,
   });
 

@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { useCookbook } from "../context/CookbookContext";
 import { useRecipe } from "../context/RecipeContext";
 import CookbookCard from "../components/CookbookCard";
 import RecipeCard from "../components/RecipeCard";
 
 export default function HomePage() {
-  const { user } = useAuth();
   const { cookbooks } = useCookbook();
   const { recipes } = useRecipe();
 
@@ -31,10 +29,11 @@ export default function HomePage() {
       <div className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
-            Welcome back, {user?.name || user?.email?.split('@')[0]}! 👋
+            Welcome to My Kitchen Shelf 👋
           </h1>
           <p className="hero-subtitle">
-            Ready to explore your culinary collection? Here's what's cooking in your kitchen.
+            A portfolio demo of a personal cookbook and recipe archive. Add, edit, favorite —
+            everything resets on reload.
           </p>
         </div>
       </div>
@@ -83,10 +82,10 @@ export default function HomePage() {
             <h3>Your Favorites</h3>
             <p>Quick access to loved items</p>
           </Link>
-          <Link to="/profile" className="action-card">
-            <div className="action-icon">👤</div>
-            <h3>Profile</h3>
-            <p>Manage your account</p>
+          <Link to="/about" className="action-card">
+            <div className="action-icon">ℹ️</div>
+            <h3>About</h3>
+            <p>About this demo</p>
           </Link>
         </div>
       </div>
