@@ -1,281 +1,148 @@
 # 📚 Cookbook Archive
 
-A beautiful, modern recipe and cookbook management application built with React, TypeScript, and Supabase. Organize your favorite recipes, manage your cookbook collection, and discover new culinary adventures with a warm, glass-morphism design.
+A personal cookbook and recipe archive — a small React app I built to keep track of which recipes I love and which cookbook they live in. This repo is the **portfolio demo version**: no accounts, no backend, no network. All data lives in memory and resets the moment you reload the page, so visitors can poke around without leaving a trace.
 
-🌐 **[Live Demo](https://cookbookarchive.vercel.app)** - Try it now!
+🌐 **[Live Demo](https://cookbookarchive.vercel.app)**
+
+> **Note:** An earlier version of this app was backed by Supabase auth and Postgres. That backend is no longer maintained — the current code runs entirely client-side from a seeded in-memory store.
 
 ## ✨ Features
 
-- 🔐 **User Authentication** - Secure login and registration with Supabase Auth
-- 📖 **Cookbook Management** - Create, edit, and organize your cookbook collection
-- 📱 **Barcode Scanning** - Quickly add cookbooks by scanning ISBN barcodes or manual ISBN lookup
-- 🍳 **Recipe Management** - Add, edit, and categorize your favorite recipes
-- ❤️ **Favorites System** - Mark recipes and cookbooks as favorites for quick access
-- 👤 **User Profiles** - Customizable profile with statistics and account management
-- 🎨 **Beautiful UI** - Warm glass-morphism design with smooth animations
-- 📱 **Responsive Design** - Works perfectly on desktop, tablet, and mobile devices
-- 🔍 **Search & Filter** - Easily find recipes and cookbooks
-- 📊 **Statistics Dashboard** - Track your cookbook and recipe collection growth
-- 🌐 **Cross-Device Access** - Access your recipes anywhere, anytime
+- 📖 **Cookbook collection** — add, edit, delete, and favorite cookbooks
+- 🍳 **Recipe management** — full CRUD with ingredients, instructions, source, and notes
+- ❤️ **Favorites** — flag any cookbook or recipe and surface them on a dedicated page
+- 📅 **Weekly meal planner** — let the app suggest a random recipe per day, or cycle through your library
+- 📱 **Barcode scanning** — scan a cookbook's ISBN with your camera (or paste one) to auto-fill title/author/description via Open Library + Google Books
+- 📊 **Stats overview** — see how many cookbooks, recipes, and favorites are in the demo at a glance
+- 🎨 **Warm glass-morphism UI** — soft gradients, blur, peach/brown palette
+- 📱 **Fully responsive** — mobile-first layout with a hamburger nav under 768px
 
-## 🛠️ Tech Stack
+## 🛠️ Tech stack
 
-- **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS, Custom CSS with Glass-morphism effects
-- **Backend**: Supabase (Database, Authentication, Real-time subscriptions)
-- **Routing**: React Router DOM with client-side navigation
-- **State Management**: React Context API
-- **Build Tool**: Vite (Fast HMR and optimized builds)
-- **Deployment**: Vercel (or Netlify)
-- **Linting**: ESLint with TypeScript support
+- **React 19** + **TypeScript 5.8**
+- **Vite 6** for dev and build
+- **React Router 7** (data router via `RouterProvider`)
+- **Tailwind CSS 4** + a small hand-written CSS layer for the bespoke pieces
+- **React Context** for state (no Redux/Zustand)
+- **react-hot-toast** for notifications
+- **@zxing/browser** + **@zxing/library** for ISBN scanning
+- **axios** for the ISBN lookup (Open Library → Google Books fallback)
+- **@vercel/analytics** for page-view tracking on the live demo
 
-## 🚀 Getting Started
+## 🚀 Getting started
 
 ### Prerequisites
-
-- Node.js (v18 or higher)
-- npm or yarn
-- A Supabase account and project
+- Node.js v18 or higher
+- npm (or your package manager of choice)
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/eskmag/cookbook-archive.git
-   cd cookbook-archive
-   ```
+```bash
+git clone https://github.com/eskmag/cookbook-archive.git
+cd cookbook-archive
+npm install
+npm run dev
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+Open [http://localhost:5173](http://localhost:5173) and you're in. No `.env` file, no Supabase setup, nothing else to configure.
 
-3. **Set up environment variables**
-   Create a `.env.local` file in the root directory:
-   ```env
-   VITE_SUPABASE_URL=your_supabase_project_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-   ```
+## 🧪 What you can try in the demo
 
-4. **Set up Supabase**
-   - Create a new project in [Supabase](https://supabase.com)
-   - Configure your database tables for cookbooks, recipes, and user profiles
-   - Set up Row Level Security (RLS) policies
-   - Configure authentication settings and allowed domains
-
-5. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-6. **Open your browser**
-   Navigate to `http://localhost:5173`
+1. The app opens on a dashboard pre-seeded with 3 cookbooks and 6 recipes.
+2. Add a new cookbook (try the **Scan Barcode** button if your machine has a webcam — the ISBN lookup still works against public APIs).
+3. Add, edit, and delete recipes on the Recipes page.
+4. Hit the heart icon on anything; check the **Favorites** page.
+5. Open the **Meal Planner** — *Suggest a Meal* picks a random recipe for that day, *Choose Meal* cycles through your library.
+6. Reload the page. Everything resets back to the seeded demo state.
 
 ## 🌐 Deployment
 
-### Deploy to Vercel (Recommended)
+The demo is hosted on Vercel. Because there's no backend anymore, deploying is trivial:
 
-1. **Push to GitHub** (if not already done)
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
+```bash
+npm run build
+# upload dist/ to any static host
+```
 
-2. **Deploy to Vercel**
-   - Go to [vercel.com](https://vercel.com) and sign in with GitHub
-   - Click "New Project" and import your `cookbook-archive` repository
-   - Add environment variables:
-     - `VITE_SUPABASE_URL`
-     - `VITE_SUPABASE_ANON_KEY`
-   - Click "Deploy"
-
-3. **Configure Supabase for Production**
-   - Add your Vercel domain to Supabase Auth settings
-   - Update redirect URLs if needed
-
-### Alternative Deployment Options
-
-- **Netlify**: Similar process with automatic GitHub integration
-- **Firebase Hosting**: Use Firebase CLI for deployment
-- **GitHub Pages**: For static hosting (requires additional configuration)
-
-## 📖 Usage
-
-### Getting Started
-1. **Register** for a new account or **login** with existing credentials
-2. **Create your first cookbook** to organize your recipes
-3. **Add recipes** to your cookbooks with ingredients and instructions
-4. **Mark favorites** to quickly access your most-loved recipes
-5. **Edit your profile** to personalize your experience and view statistics
-
-### Managing Cookbooks
-- Create new cookbooks with titles, authors, and descriptions
-- Edit existing cookbooks to keep information up-to-date
-- Add or remove recipes from your cookbooks
-- Mark cookbooks as favorites for quick access
-- View cookbook statistics on your profile
-
-### Managing Recipes
-- Add new recipes with detailed instructions and ingredients
-- Edit recipe information and categorization
-- Mark recipes as favorites
-- Search and filter through your recipe collection
-- Track your recipe collection growth
-
-### Profile Features
-- Edit your display name and profile information
-- View comprehensive statistics (total cookbooks, recipes, favorites)
-- Manage account settings
-- Secure logout functionality
-
-## 🎨 Design Features
-
-- **Glass-morphism UI** - Modern, translucent design elements with backdrop blur
-- **Warm Color Palette** - Cozy, inviting browns and earth tones
-- **Smooth Animations** - Polished hover effects and micro-interactions
-- **Responsive Layout** - Mobile-first design that works on all devices
-- **Touch-Friendly** - Optimized for mobile and tablet interaction
-- **Accessibility** - Keyboard navigation and screen reader support
-- **Dark Mode Ready** - Prepared for future dark theme implementation
+On Vercel: import the repo, accept the defaults, deploy. No environment variables required.
 
 ## 🔧 Development
 
-### Available Scripts
+### Available scripts
 
 ```bash
-# Start development server with hot reload
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build locally
-npm run preview
-
-# Run ESLint
-npm run lint
-
-# Type checking
-npm run type-check
+npm run dev      # Vite dev server with HMR
+npm run build    # tsc -b && vite build
+npm run preview  # serve the production build locally
+npm run lint     # ESLint
 ```
 
-### Project Structure
+### Project structure
 
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── UserProfile.tsx  # Enhanced profile management
-│   └── ...
-├── context/            # React Context providers
-│   ├── AuthContext.tsx # Authentication state management
+│   ├── AddCookbookForm.tsx
+│   ├── AddRecipeForm.tsx
+│   ├── BarcodeScanner.tsx
+│   ├── CookbookCard.tsx
+│   ├── MealCard.tsx
+│   ├── RecipeCard.tsx
+│   ├── SkeletonCard.tsx
+│   └── UserProfile.tsx   # repurposed as the About page
+├── context/             # In-memory state stores
 │   ├── CookbookContext.tsx
 │   └── RecipeContext.tsx
-├── data/               # Static data and utilities
-├── pages/              # Route components
-│   ├── LoginPage.tsx
-│   ├── RegisterPage.tsx
-│   └── ...
-├── assets/             # Static assets
-├── App.tsx             # Main application with routing
-├── main.tsx            # Application entry point
-├── index.css           # Global styles with glass-morphism
-└── supabase.ts         # Supabase configuration
+├── data/                # Seed data loaded on startup
+│   ├── cookbook.ts
+│   └── recipes.ts
+├── pages/               # Route components
+│   ├── HomePage.tsx
+│   ├── FavoritesPage.tsx
+│   ├── AllCookbooksPage.tsx
+│   ├── BookDetail.tsx
+│   ├── EditCookbook.tsx
+│   ├── RecipePage.tsx
+│   ├── RecipeDetail.tsx
+│   ├── EditRecipe.tsx
+│   └── MealPlannerPage.tsx
+├── services/
+│   └── bookService.ts   # ISBN → book metadata lookup
+├── App.tsx              # Layout: sticky header, nav, <Outlet/>
+├── main.tsx             # Router + providers + Toaster
+└── index.css            # Tailwind + custom CSS
 ```
 
-### Key Features Implemented
+### How the in-memory store works
 
-- ✅ **User Authentication** with Supabase Auth
-- ✅ **Profile Management** with editable user information
-- ✅ **Recipe & Cookbook CRUD** operations
-- ✅ **Favorites System** with real-time updates
-- ✅ **Statistics Dashboard** with live data
-- ✅ **Responsive Design** with mobile optimization
-- ✅ **Glass-morphism UI** with warm color palette
-- ✅ **Client-side Routing** with React Router
+Both `CookbookContext` and `RecipeContext` initialize `useState` from the arrays in `src/data/`. CRUD operations mutate that local state with `useState` setters and an incrementing-id `useRef`. All methods still return `Promise<void>` so the rest of the app didn't need to change when the Supabase backend was ripped out.
 
-## 🤝 Contributing
+That means:
+- Refresh the page → state resets to the seed data.
+- Open the app in two tabs → each tab has its own independent state.
+- Closing the tab loses any changes — by design.
 
-We welcome contributions! Please follow these steps:
+## 📱 Barcode scanning & ISBN lookup
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+The barcode scanner still works because it calls public APIs only:
 
-### Development Guidelines
+1. Click **Scan Barcode** when adding a cookbook.
+2. Grant camera access and frame the book's ISBN barcode.
+3. The detected ISBN is looked up first via Open Library, then falling back to Google Books.
+4. Title, author, and description auto-fill — edit or save as-is.
 
-- Follow TypeScript best practices
-- Maintain the glass-morphism design consistency
-- Ensure mobile responsiveness
-- Add proper error handling
-- Write meaningful commit messages
+You can also paste an ISBN manually and click **Lookup**.
 
-## 🐛 Known Issues & Roadmap
+## 🗺️ Roadmap (for the personal copy, not this demo)
 
-### Current Limitations
-- Profile picture upload (planned for future release)
-- Recipe sharing between users (planned)
-- Export/import functionality (planned)
-
-### Upcoming Features
-- 🔄 Recipe sharing and collaboration
-- 📸 Image upload for recipes and cookbooks
-- 📤 Export recipes to PDF
-- 🌙 Dark mode theme
-- 🔔 Notifications and reminders
+The original app had plans for image uploads, recipe sharing, PDF export, and a dark theme. Those features remain on the wish list for a future, backend-equipped version — they're not in scope for this portfolio showcase.
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Supabase](https://supabase.com) for the excellent backend-as-a-service platform
-- [Vite](https://vitejs.dev) for the blazing fast build tool
-- [React](https://reactjs.org) for the powerful UI framework
-- [Tailwind CSS](https://tailwindcss.com) for utility-first styling
-- [Vercel](https://vercel.com) for seamless deployment and hosting
-
-## 📧 Contact & Support
-
-- **Issues**: Open a GitHub issue for bug reports or feature requests
-- **Discussions**: Use GitHub Discussions for questions and community chat
-- **Email**: Contact the maintainers for private inquiries
-
-## 🌟 Show Your Support
-
-If you find this project helpful, please consider:
-- ⭐ Starring the repository
-- 🍴 Forking for your own use
-- 📢 Sharing with others who might find it useful
-- 🐛 Reporting bugs or suggesting improvements
+MIT — see [LICENSE](LICENSE).
 
 ---
 
-## 📱 Barcode Scanning & ISBN Lookup
+Made with a love for cooking by [Eskil](https://github.com/eskmag)
 
-The Cookbook Archive app features convenient ways to add cookbooks:
-
-### ISBN Barcode Scanning
-1. When adding a new cookbook, click the "Scan Barcode" button
-2. Grant camera access permissions if prompted
-3. Position the book's ISBN barcode within the scanner frame
-4. Once detected, the app will automatically look up the book details
-5. Fill in any additional details and save your cookbook
-
-### Manual ISBN Entry
-1. Enter the ISBN number in the ISBN field
-2. Click the "Lookup" button
-3. The app will automatically populate title, author and description
-4. Add any additional information like your favorite recipes
-5. Save the cookbook to your collection
-
-> 💡 **Tip:** The ISBN lookup feature works with most published cookbooks and culinary books that have registered ISBN numbers.
-
----
-
-Made with ❤️ and lots of ☕ by [Eskil](https://github.com/eskmag)
-
-*Happy cooking and recipe organizing!* 🍳📚
+*Happy cooking and recipe organizing!*
