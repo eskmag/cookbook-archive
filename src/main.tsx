@@ -51,33 +51,32 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           toastOptions={{
             duration: 4000,
             style: {
-              background: "rgba(254, 247, 240, 0.95)",
-              backdropFilter: "blur(15px)",
-              border: "1px solid rgba(238, 203, 173, 0.3)",
-              borderRadius: "1rem",
-              color: "rgba(101, 67, 33, 0.95)",
-              boxShadow: "0 8px 32px rgba(184, 134, 91, 0.15)",
+              background: "#faf6f0",
+              border: "1px solid rgba(217, 195, 166, 0.6)",
+              borderRadius: "0.75rem",
+              color: "#2e2a26",
+              boxShadow: "0 10px 28px rgba(110, 74, 47, 0.10)",
+              fontFamily: "Inter, system-ui, sans-serif",
               fontSize: "14px",
-              fontWeight: "500",
+              fontWeight: 500,
+              padding: "0.75rem 1rem",
             },
             success: {
               style: {
-                border: "1px solid rgba(144, 238, 144, 0.4)",
-                background: "rgba(240, 255, 240, 0.95)",
+                border: "1px solid rgba(143, 166, 142, 0.55)",
               },
               iconTheme: {
-                primary: "#90ee90",
-                secondary: "white",
+                primary: "#8FA68E",
+                secondary: "#faf6f0",
               },
             },
             error: {
               style: {
-                border: "1px solid rgba(240, 128, 128, 0.4)",
-                background: "rgba(255, 240, 240, 0.95)",
+                border: "1px solid rgba(168, 120, 112, 0.55)",
               },
               iconTheme: {
-                primary: "#f08080",
-                secondary: "white",
+                primary: "#A87870",
+                secondary: "#faf6f0",
               },
             },
           }}

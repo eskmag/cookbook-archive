@@ -67,10 +67,12 @@ export default function MealPlannerPage() {
   };
 
   return (
-    <div>
-      <h2 className="text-3xl font-bold mb-2 text-stone-700">Weekly Meal Planner</h2>
-      <p className="text-stone-500 mb-6">
-        Click <em>Suggest a Meal</em> for a random pick, or <em>Choose Meal</em> to cycle through
+    <div className="max-w-7xl mx-auto">
+      <h1 className="section-title" style={{ marginBottom: "0.5rem" }}>
+        Weekly Meal Planner
+      </h1>
+      <p style={{ color: "var(--color-stone)", marginBottom: "2rem", maxWidth: "640px" }}>
+        Click <em>Suggest a meal</em> for a random pick, or <em>Choose meal</em> to cycle through
         your recipes.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

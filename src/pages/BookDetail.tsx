@@ -4,13 +4,11 @@ import { useCookbook } from "../context/CookbookContext";
 import type { Cookbook } from "../context/CookbookContext";
 
 export default function BookDetail() {
-  const { id } = useParams<{ id: string }>(); // alltid string fra URL
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { cookbooks, deleteCookbook } = useCookbook();
 
-  // Konverterer id fra string til number (hvis id finnes)
   const idNum = id ? parseInt(id, 10) : undefined;
-
   const [book, setBook] = useState<Cookbook | undefined>(undefined);
 
   useEffect(() => {
@@ -18,16 +16,23 @@ export default function BookDetail() {
       setBook(undefined);
       return;
     }
-    const found = cookbooks.find((b) => b.id === idNum);
-    setBook(found);
+    setBook(cookbooks.find((b) => b.id === idNum));
   }, [idNum, cookbooks]);
 
   if (!id || idNum === undefined || isNaN(idNum)) {
-    return <div className="p-6 text-red-600">Invalid cookbook ID</div>;
+    return (
+      <div className="book-detail max-w-2xl mx-auto text-center">
+        <p style={{ color: "var(--color-rose-dark)" }}>Invalid cookbook ID</p>
+      </div>
+    );
   }
 
   if (!book) {
-    return <div className="p-6 text-gray-500">Loading cookbook...</div>;
+    return (
+      <div className="book-detail max-w-2xl mx-auto text-center">
+        <p style={{ color: "var(--color-stone)" }}>Loading cookbook…</p>
+      </div>
+    );
   }
 
   const handleDelete = async () => {
@@ -39,39 +44,60 @@ export default function BookDetail() {
   };
 
   return (
-    <div className="book-detail max-w-2xl mx-auto p-6">
-      <button className="mb-4 text-blue-600 hover:underline" onClick={() => navigate("/cookbooks")}>
+    <div className="book-detail max-w-2xl mx-auto">
+      <button
+        onClick={() => navigate("/cookbooks")}
+        className="view-all-link"
+        style={{
+          background: "transparent",
+          border: "none",
+          cursor: "pointer",
+          padding: 0,
+          marginBottom: "1.25rem",
+          display: "inline-block",
+        }}
+      >
         ← Back
       </button>
 
-      <h1 className="text-3xl font-bold">{book.title}</h1>
-      <p className="text-gray-700 italic mb-2">by {book.author}</p>
+      <h1>{book.title}</h1>
+      <p style={{ color: "var(--color-stone)", fontStyle: "italic", marginTop: "0.25rem" }}>
+        by {book.author}
+      </p>
 
-      {book.description && <p className="mb-2">{book.description}</p>}
-      {book.location && <p className="mb-2 text-sm text-gray-500">📍 {book.location}</p>}
+      {book.description && (
+        <p style={{ marginTop: "1rem", lineHeight: 1.7 }}>{book.description}</p>
+      )}
+      {book.location && (
+        <p style={{ marginTop: "0.75rem", fontSize: "0.9rem", color: "var(--color-stone)" }}>
+          📍 {book.location}
+        </p>
+      )}
 
       {book.favoriteRecipes?.length ? (
-        <div className="mt-4">
-          <h2 className="text-xl font-semibold mb-2">Favorite Recipes</h2>
-          <ul className="list-disc list-inside">
+        <div style={{ marginTop: "1.75rem" }}>
+          <h2 style={{ fontSize: "1.25rem", marginBottom: "0.75rem" }}>Favorite Recipes</h2>
+          <ul className="list-disc list-inside" style={{ color: "var(--color-charcoal)", lineHeight: 1.8 }}>
             {book.favoriteRecipes.map((recipe, index) => (
               <li key={index}>{recipe}</li>
             ))}
           </ul>
         </div>
       ) : (
-        <p className="mt-4 text-gray-500">No favorites yet</p>
+        <p style={{ marginTop: "1.5rem", color: "var(--color-stone)", fontStyle: "italic" }}>
+          No favorites yet
+        </p>
       )}
 
-      <div className="mt-6 flex gap-4">
-        <button className="bg-red-600 text-white px-4 py-2 rounded" onClick={handleDelete}>
-          Delete
-        </button>
+      <div className="mt-6 flex gap-3 flex-wrap">
         <button
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          className="edit-button"
           onClick={() => navigate(`/cookbook/${book.id}/edit`)}
         >
           Edit
+        </button>
+        <button className="delete-button" onClick={handleDelete}>
+          Delete
         </button>
       </div>
     </div>

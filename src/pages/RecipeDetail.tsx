@@ -13,20 +13,31 @@ export default function RecipeDetail() {
 
   useEffect(() => {
     if (isNaN(recipeId)) return;
-    const found = recipes.find((r) => r.id === recipeId);
-    setRecipe(found);
+    setRecipe(recipes.find((r) => r.id === recipeId));
   }, [recipeId, recipes]);
 
   if (isNaN(recipeId)) {
-    return <div className="p-6 text-red-600">Invalid recipe ID</div>;
+    return (
+      <div className="recipe-detail max-w-2xl mx-auto text-center">
+        <p style={{ color: "var(--color-rose-dark)" }}>Invalid recipe ID</p>
+      </div>
+    );
   }
 
   if (recipe === undefined) {
-    return <div className="p-6 text-gray-500">Loading recipe...</div>;
+    return (
+      <div className="recipe-detail max-w-2xl mx-auto text-center">
+        <p style={{ color: "var(--color-stone)" }}>Loading recipe…</p>
+      </div>
+    );
   }
 
   if (!recipe) {
-    return <div className="p-6 text-red-600">Recipe not found 😢</div>;
+    return (
+      <div className="recipe-detail max-w-2xl mx-auto text-center">
+        <p style={{ color: "var(--color-rose-dark)" }}>Recipe not found.</p>
+      </div>
+    );
   }
 
   const handleDelete = () => {
@@ -38,50 +49,66 @@ export default function RecipeDetail() {
   };
 
   return (
-    <div className="recipe-detail">
+    <div className="recipe-detail max-w-2xl mx-auto">
       <button
-        className="text-blue-600 hover:underline"
         onClick={() => navigate("/recipes")}
+        className="view-all-link"
+        style={{
+          background: "transparent",
+          border: "none",
+          cursor: "pointer",
+          padding: 0,
+          marginBottom: "1.25rem",
+          display: "inline-block",
+        }}
       >
         ← Back to recipes
       </button>
 
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-blue-900">{recipe.title}</h1>
-        {recipe.source && (
-          <p className="Source">
-            Soruce: {recipe.source}
-          </p>
-        )}
-      </div>
+      <h1>{recipe.title}</h1>
+      {recipe.source && (
+        <p style={{ color: "var(--color-stone)", fontStyle: "italic", marginTop: "0.25rem" }}>
+          from {recipe.source}
+        </p>
+      )}
 
-      <div className="instructions">
+      <div className="instructions" style={{ marginTop: "1.75rem", display: "flex", flexDirection: "column", gap: "1.75rem" }}>
         <div>
-          <h2 className="text-xl font-semibold text-blue-700">🧂 Ingredients</h2>
-          <ul className="list-disc list-inside text-gray-800">
+          <h2 style={{ fontSize: "1.25rem", marginBottom: "0.75rem" }}>Ingredients</h2>
+          <ul className="list-disc list-inside" style={{ color: "var(--color-charcoal)", lineHeight: 1.8 }}>
             {recipe.ingredients.map((item, idx) => (
               <li key={idx}>{item}</li>
             ))}
           </ul>
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-blue-700">👨‍🍳 Instructions</h2>
-          <p className="whitespace-pre-line text-gray-800">{recipe.instructions}</p>
+          <h2 style={{ fontSize: "1.25rem", marginBottom: "0.75rem" }}>Instructions</h2>
+          <p
+            className="whitespace-pre-line"
+            style={{ color: "var(--color-charcoal)", lineHeight: 1.75 }}
+          >
+            {recipe.instructions}
+          </p>
         </div>
+        {recipe.notes && (
+          <div>
+            <h2 style={{ fontSize: "1.25rem", marginBottom: "0.75rem" }}>Notes</h2>
+            <p style={{ color: "var(--color-stone)", lineHeight: 1.7, fontStyle: "italic" }}>
+              {recipe.notes}
+            </p>
+          </div>
+        )}
       </div>
 
-      <div className="flex gap-4 pt-4">
-        <button
-          onClick={handleDelete}
-          className="delete-button"
-        >
-          Delete Recipe
-        </button>
+      <div className="flex gap-3 flex-wrap" style={{ marginTop: "2rem" }}>
         <button
           onClick={() => navigate(`/recipe/${recipe.id}/edit`)}
           className="edit-button"
         >
           Edit
+        </button>
+        <button onClick={handleDelete} className="delete-button">
+          Delete Recipe
         </button>
       </div>
     </div>

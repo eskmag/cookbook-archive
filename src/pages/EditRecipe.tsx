@@ -58,89 +58,94 @@ export default function EditRecipe() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!recipeToEdit) return;
-    
+
     const updatedRecipe: Recipe = {
       id: recipeId,
       ...form,
     };
-    
+
     await updateRecipe(updatedRecipe);
     navigate(`/recipe/${recipeId}`);
   };
 
   if (!recipeToEdit) {
-    return <div className="p-6 text-red-600">Cannot find recipe</div>;
+    return (
+      <div className="form-card max-w-xl mx-auto text-center">
+        <p style={{ color: "var(--color-rose-dark)" }}>Cannot find that recipe.</p>
+      </div>
+    );
   }
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Edit Recipe</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="max-w-2xl mx-auto">
+      <h1 className="section-title">Edit Recipe</h1>
+      <form onSubmit={handleSubmit} className="form-card space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Title</label>
+          <label className="form-label">Title</label>
           <input
             type="text"
             name="title"
             value={form.title}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            className="form-input"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Ingredients</label>
+          <label className="form-label">Ingredients</label>
           {form.ingredients?.map((item, index) => (
             <div key={index} className="flex gap-2 mt-2">
               <input
                 type="text"
                 value={item}
                 onChange={(e) => handleIngredientChange(index, e.target.value)}
-                className="flex-1 border-gray-300 rounded-md shadow-sm"
+                className="form-input"
               />
               <button
                 type="button"
                 onClick={() => handleRemoveIngredient(index)}
+                className="btn-secondary"
+                style={{ padding: "0.5rem 0.75rem" }}
+                aria-label="Remove ingredient"
               >
-                ✖
+                ✕
               </button>
             </div>
           ))}
           <button
             type="button"
             onClick={handleAddIngredient}
-            className="mt-2 text-blue-600"
+            className="view-all-link"
+            style={{ marginTop: "0.75rem", background: "transparent", border: "none", cursor: "pointer", padding: 0 }}
           >
-            ➕ Add ingredient
+            + Add ingredient
           </button>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Instructions</label>
+          <label className="form-label">Instructions</label>
           <textarea
             name="instructions"
             value={form.instructions}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            className="form-input"
             rows={6}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Source</label>
+          <label className="form-label">Source</label>
           <input
             type="text"
             name="source"
             value={form.source}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            className="form-input"
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-        >
+        <button type="submit" className="btn-primary w-full">
           Save Changes
         </button>
       </form>

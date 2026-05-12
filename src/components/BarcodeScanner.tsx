@@ -66,7 +66,11 @@ export default function BarcodeScanner({ onDetected, isScanning }: BarcodeScanne
 
   return (
     <div className="relative w-full">
-      {error && <div className="text-red-500 mb-2">{error}</div>}
+      {error && (
+        <div className="mb-2" style={{ color: "var(--color-rose-dark)" }}>
+          {error}
+        </div>
+      )}
       <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-gray-800">
         <video 
           ref={videoRef} 

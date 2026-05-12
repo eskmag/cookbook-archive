@@ -6,7 +6,7 @@ import type { Cookbook } from "../data/cookbook";
 export default function EditCookbook() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { cookbooks, updateCookbook } = useCookbook(); // 👈 Endret
+  const { cookbooks, updateCookbook } = useCookbook();
 
   const bookId = Number(id);
   const bookToEdit = cookbooks.find((b) => b.id === bookId);
@@ -66,90 +66,95 @@ export default function EditCookbook() {
   };
 
   if (!bookToEdit) {
-    return <div className="p-6 text-red-600">Can't find cookbook</div>;
+    return (
+      <div className="form-card max-w-xl mx-auto text-center">
+        <p style={{ color: "var(--color-rose-dark)" }}>Can't find that cookbook.</p>
+      </div>
+    );
   }
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Edit Cookbook</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="max-w-2xl mx-auto">
+      <h1 className="section-title">Edit Cookbook</h1>
+      <form onSubmit={handleSubmit} className="form-card space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Title</label>
+          <label className="form-label">Title</label>
           <input
             type="text"
             name="title"
             value={form.title}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            className="form-input"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Author</label>
+          <label className="form-label">Author</label>
           <input
             type="text"
             name="author"
             value={form.author}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            className="form-input"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Favorite recipes</label>
+          <label className="form-label">Favorite recipes</label>
           {form.favoriteRecipes?.map((recipe, index) => (
             <div key={index} className="flex gap-2 mt-2">
               <input
                 type="text"
                 value={recipe}
                 onChange={(e) => handleRecipeChange(index, e.target.value)}
-                className="flex-1 border-gray-300 rounded-md shadow-sm"
+                className="form-input"
               />
               <button
                 type="button"
                 onClick={() => handleRemoveRecipe(index)}
-                className="text-red-500 hover:text-red-700"
+                className="btn-secondary"
+                style={{ padding: "0.5rem 0.75rem" }}
+                aria-label="Remove recipe"
               >
-                ✖
+                ✕
               </button>
             </div>
           ))}
           <button
             type="button"
             onClick={handleAddRecipe}
-            className="mt-2 text-blue-600 hover:underline"
+            className="view-all-link"
+            style={{ marginTop: "0.75rem", background: "transparent", border: "none", cursor: "pointer", padding: 0 }}
           >
-            ➕ Add Recipe
+            + Add recipe
           </button>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Description</label>
+          <label className="form-label">Description</label>
           <textarea
             name="description"
             value={form.description}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            className="form-input"
+            rows={3}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Location</label>
+          <label className="form-label">Location</label>
           <input
             type="text"
             name="location"
             value={form.location}
             onChange={handleChange}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+            className="form-input"
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-        >
+        <button type="submit" className="btn-primary w-full">
           Save Changes
         </button>
       </form>

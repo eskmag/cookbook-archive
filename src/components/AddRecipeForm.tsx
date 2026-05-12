@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useRecipe } from "../context/RecipeContext";
 import type { RecipeInput } from "../context/RecipeContext";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 type Props = {
-    onAdd?: (recipe: RecipeInput) => Promise<void>;
+  onAdd?: (recipe: RecipeInput) => Promise<void>;
 };
 
 export default function AddRecipeForm({ onAdd }: Props) {
@@ -21,16 +21,19 @@ export default function AddRecipeForm({ onAdd }: Props) {
     const newRecipe: RecipeInput = {
       title,
       source,
-      ingredients: ingredients.split("\n").map((line) => line.trim()).filter(Boolean),
+      ingredients: ingredients
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean),
       instructions,
       isFavorite: false,
     };
 
     try {
       if (onAdd) {
-          await onAdd(newRecipe);
+        await onAdd(newRecipe);
       } else {
-          await addRecipe(newRecipe);
+        await addRecipe(newRecipe);
       }
 
       toast.success("Recipe added successfully! 🍳", {
@@ -47,36 +50,38 @@ export default function AddRecipeForm({ onAdd }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-6 space-y-5">
+    <form onSubmit={handleSubmit} className="form-card space-y-4 max-w-2xl mx-auto">
       <input
-        className="w-full border rounded px-3 py-2"
+        className="form-input"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Recipe Title"
+        placeholder="Recipe title"
         required
       />
       <input
-        className="w-full border rounded px-3 py-2"
+        className="form-input"
         value={source}
         onChange={(e) => setSource(e.target.value)}
-        placeholder="Source (YouTube, Family, Link...)"
+        placeholder="Source (cookbook, link, family…)"
       />
       <textarea
-        className="w-full border rounded px-3 py-2"
+        className="form-input"
         rows={4}
         value={ingredients}
         onChange={(e) => setIngredients(e.target.value)}
         placeholder="Ingredients (one per line)"
       />
       <textarea
-        className="w-full border rounded px-3 py-2"
+        className="form-input"
         rows={5}
         value={instructions}
         onChange={(e) => setInstructions(e.target.value)}
         placeholder="Instructions"
         required
       />
-      <button className="bg-blue-600 text-white px-4 py-2 rounded">Add Recipe</button>
+      <button type="submit" className="btn-primary">
+        Add Recipe
+      </button>
     </form>
   );
 }
